@@ -1,0 +1,77 @@
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+
+const App = () => {
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState(null);
+
+  // Function to generate Yes or No answer
+  const handleAskQuestion = () => {
+    if (question.trim() === '') return;
+
+    const randomAnswer = Math.random() < 0.5 ? 'Yes' : 'No';
+    setAnswer(randomAnswer);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Yes/No Helper</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Ask a yes/no question..."
+        value={question}
+        onChangeText={setQuestion}
+      />
+      <TouchableOpacity style={styles.button} onPress={handleAskQuestion}>
+        <Text style={styles.buttonText}>Ask</Text>
+      </TouchableOpacity>
+
+      {answer && <Text style={styles.answer}>{answer}</Text>}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    padding: 20,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#4CAF50',
+  },
+  input: {
+    width: '100%',
+    height: 50,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingLeft: 10,
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#4CAF50',
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  answer: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 20,
+    color: '#4CAF50',
+  },
+});
+
+export default App;
